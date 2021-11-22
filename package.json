@@ -1,9 +1,9 @@
 {
-  "publisher": "lokalise",
+  "publisher": "stephenykk",
   "name": "i18n-easy",
   "version": "2.8.1",
-  "displayName": "i18n Ally",
-  "description": "🌍 All in one i18n extension for VS Code",
+  "displayName": "i18n-easy",
+  "description": "🌍 i18n extension for VS Code, make i18n easy",
   "keywords": [
     "vue",
     "vue-i18n",
@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/lokalise/i18n-easy"
+    "url": "https://github.com/stephenykk/i18n-easy"
   },
   "main": "./dist/extension",
   "scripts": {
@@ -23,8 +23,8 @@
     "gh:release": "conventional-github-releaser -p angular",
     "build": "rimraf dist && nr i18n:build && nr main:build && nr editor:build && esno scripts/post-build.ts",
     "dev": "run-p *:dev",
-    "main:build": "cross-env I18N_ALLY_ENV=production webpack --mode development",
-    "main:dev": "cross-env I18N_ALLY_ENV=development webpack --mode development --watch --info-verbosity verbose",
+    "main:build": "cross-env I18N_EASY_ENV=production webpack --mode development",
+    "main:dev": "cross-env I18N_EASY_ENV=development webpack --mode development --watch --info-verbosity verbose",
     "editor:build": "parcel build src/webview/src/index.html --out-dir dist/editor --no-minify",
     "editor:dev": "nodemon -w src/webview/src -e js,ts,vue,html --exec \"nr editor:build\"",
     "i18n:build": "esno scripts/build-i18n.ts",
@@ -33,11 +33,11 @@
     "lint": "eslint --ext .ts,.js,.vue .",
     "lint:fix": "nr lint -- --fix",
     "test": "nr test:unit",
-    "test:e2e": "rimraf test/e2e-out && tsc -p test/e2e && cross-env I18N_ALLY_ENV=test node ./test/e2e-out/index.js",
+    "test:e2e": "rimraf test/e2e-out && tsc -p test/e2e && cross-env I18N_EASY_ENV=test node ./test/e2e-out/index.js",
     "test:e2e:update": "cross-env CHAI_JEST_SNAPSHOT_UPDATE_ALL=true yarn test:e2e",
     "test:e2e:dev": "rimraf test/e2e-out && tsc -p test/e2e --watch",
-    "test:fixture": "rimraf test/fixture-scripts-out && tsc -p test/fixture-scripts && cross-env I18N_ALLY_ENV=test node ./test/fixture-scripts-out/index.js",
-    "test:unit": "cross-env I18N_ALLY_ENV=test ts-mocha -p test/unit/tsconfig.json --file test/unit/setup.ts test/unit/**/*.test.ts test/unit/**/**/*.test.ts",
+    "test:fixture": "rimraf test/fixture-scripts-out && tsc -p test/fixture-scripts && cross-env I18N_EASY_ENV=test node ./test/fixture-scripts-out/index.js",
+    "test:unit": "cross-env I18N_EASY_ENV=test ts-mocha -p test/unit/tsconfig.json --file test/unit/setup.ts test/unit/**/*.test.ts test/unit/**/**/*.test.ts",
     "test:update": "cross-env CHAI_JEST_SNAPSHOT_UPDATE_ALL=true nr test:unit"
   },
   "dependencies": {
@@ -166,8 +166,8 @@
     "onLanguage:svelte"
   ],
   "icon": "res/logo.png",
-  "homepage": "https://github.com/lokalise/i18n-easy",
-  "bugs": "https://github.com/lokalise/i18n-easy/issues",
+  "homepage": "https://github.com/stephenykk/i18n-easy",
+  "bugs": "https://github.com/stephenykk/i18n-easy/issues",
   "contributes": {
     "commands": [
       {
@@ -547,17 +547,17 @@
         {
           "command": "i18n-easy.rename-key",
           "when": "view =~ /i18n-easy-locales/ && viewItem =~ /node/ && viewItem =~ /writable/",
-          "group": "i18nally@1"
+          "group": "i18neasy@1"
         },
         {
           "command": "i18n-easy.duplicate-key",
           "when": "view =~ /i18n-easy-locales-tree/ && viewItem =~ /node/ && viewItem =~ /writable/",
-          "group": "i18nally@2"
+          "group": "i18neasy@2"
         },
         {
           "command": "i18n-easy.delete-key",
           "when": "view =~ /i18n-easy-locales/ && viewItem =~ /node/ && viewItem =~ /writable/",
-          "group": "i18nally@3"
+          "group": "i18neasy@3"
         },
         {
           "command": "i18n-easy.locale-visibility-show",
@@ -572,12 +572,12 @@
         {
           "command": "i18n-easy.delete-key",
           "when": "view =~ /i18n-easy-locales-usage/ && viewItem =~ /usage_idle/",
-          "group": "i18nally@1"
+          "group": "i18neasy@1"
         },
         {
           "command": "i18n-easy.mark-key-as-in-use",
           "when": "view =~ /i18n-easy-locales/ && viewItem =~ /key_idle/",
-          "group": "i18nally@1"
+          "group": "i18neasy@1"
         },
         {
           "command": "i18n-easy.open-docs-hard-string",
@@ -592,17 +592,17 @@
         {
           "command": "i18n-easy.extract-hard-strings-batch",
           "when": "viewItem =~ /i18n-easy-hard-string-root/",
-          "group": "i18nally@1"
+          "group": "i18neasy@1"
         },
         {
           "command": "i18n-easy.extract-disable-auto-detect",
           "when": "viewItem =~ /i18n-easy-hard-string-root/ && i18n-easy.extract.autoDetect == true",
-          "group": "i18nally@2"
+          "group": "i18neasy@2"
         },
         {
           "command": "i18n-easy.extract-enable-auto-detect",
           "when": "viewItem =~ /i18n-easy-hard-string-root/ && i18n-easy.extract.autoDetect == false",
-          "group": "i18nally@2"
+          "group": "i18neasy@2"
         }
       ],
       "view/title": [
@@ -620,7 +620,7 @@
       "explorer/context": [
         {
           "command": "i18n-easy.extract-hard-strings-batch",
-          "group": "1_i18nally@1"
+          "group": "1_i18neasy@1"
         }
       ],
       "comments/commentThread/title": [
@@ -1179,12 +1179,12 @@
         "i18n-easy.extract.parsers.html": {
           "type": "object",
           "default": {},
-          "description": "Parser options for extracting HTML, see https://github.com/lokalise/i18n-easy/blob/master/src/extraction/parsers/options.ts"
+          "description": "Parser options for extracting HTML, see https://github.com/stephenykk/i18n-easy/blob/master/src/extraction/parsers/options.ts"
         },
         "i18n-easy.extract.parsers.babel": {
           "type": "object",
           "default": {},
-          "description": "Parser options for extracting JS/TS/JSX/TSX, see https://github.com/lokalise/i18n-easy/blob/master/src/extraction/parsers/options.ts"
+          "description": "Parser options for extracting JS/TS/JSX/TSX, see https://github.com/stephenykk/i18n-easy/blob/master/src/extraction/parsers/options.ts"
         },
         "i18n-easy.extract.autoDetect": {
           "type": "boolean",

@@ -40,6 +40,7 @@ const config = {
     ],
   },
   module: {
+    unknownContextCritical: false,
     rules: [
       {
         test: /\.ts$/,
@@ -62,7 +63,7 @@ const config = {
         name: 'replace',
         enforce: 'pre',
         transform(code) {
-          return code.replace(/process\.env\.NODE_ENV/g, JSON.stringify(process.env.I18N_ALLY_ENV))
+          return code.replace(/process\.env\.NODE_ENV/g, JSON.stringify(process.env.I18N_EASY_ENV))
         },
       }
     }).webpack(),

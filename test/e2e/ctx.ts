@@ -16,7 +16,7 @@ export function timeout(ms = 1000) {
 }
 
 export function getExt() {
-  return extensions.getExtension('lokalise.i18n-easy')!
+  return extensions.getExtension('stephenykk.i18n-easy')!
 }
 
 export async function openFile(name: string) {

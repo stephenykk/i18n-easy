@@ -13,7 +13,7 @@ export default <ExtensionModule> function() {
 
     commands.registerCommand(Commands.open_docs_hard_string,
       async() => {
-        await env.openExternal(Uri.parse('https://github.com/lokalise/i18n-easy/wiki/Hard-coded-Strings-Extraction'))
+        await env.openExternal(Uri.parse('https://github.com/stephenykk/i18n-easy/wiki/Hard-coded-Strings-Extraction'))
       }),
 
     commands.registerCommand(Commands.support,

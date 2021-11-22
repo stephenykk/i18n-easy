@@ -8,7 +8,7 @@ const rules = [
 const includes = [
   'Created',
   '✅',
-  'Follow this link: https://lokalise.com/features/in-context-editing',
+  'Follow this link: https://stephenykk.com/features/in-context-editing',
   '<a href="mailto:some@example.com">some@example.com</a>',
   'Our region is us-east-1.',
 ]
@@ -16,13 +16,13 @@ const includes = [
 const excludes = [
   'security/login.html.twig',
   'api/*',
-  'https://lokalise.com/features/in-context-editing',
+  'https://stephenykk.com/features/in-context-editing',
   'http://localhost',
   'other:example',
   'some@example.com',
   'user.updated_successfully',
-  'lokalise.service.plan',
-  'lokalise.service.elastic_search',
+  'stephenykk.service.plan',
+  'stephenykk.service.elastic_search',
   'ROLE_USER',
   'adminIndex',
   'admin_index',

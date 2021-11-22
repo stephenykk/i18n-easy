@@ -1,0 +1,52 @@
+{
+  "name": "i18n-demo",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "build-locale:en": "ng build --prod --i18n-locale en --i18n-format xlf --i18n-file src/translate/messages.en.xlf --output-path=dist/en --baseHref /en/",
+    "build-locale:es": "ng build --prod --i18n-locale es --i18n-format xlf --i18n-file src/translate/messages.es.xlf --output-path=dist/es --baseHref /es/",
+    "build-locale:hi": " ng build --prod --i18n-locale hi --i18n-format xlf --i18n-file src/translate/messages.hi.xlf --output-path=dist/hi --baseHref /hi/",
+    "build-locale": "npm run build-locale:en && npm run build-locale:es && npm run build-locale:hi"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~12.0.1",
+    "@angular/common": "~12.0.1",
+    "@angular/compiler": "~12.0.1",
+    "@angular/core": "~12.0.1",
+    "@angular/forms": "~12.0.1",
+    "@angular/platform-browser": "~12.0.1",
+    "@angular/platform-browser-dynamic": "~12.0.1",
+    "@angular/router": "~12.0.1",
+    "core-js": "^3.13.0",
+    "rxjs": "~7.1.0",
+    "tslib": "^2.2.0",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~12.0.1",
+    "@angular/cli": "~12.0.1",
+    "@angular/compiler-cli": "~12.0.1",
+    "@angular/language-service": "~12.0.1",
+    "@types/jasmine": "~3.7.4",
+    "@types/jasminewd2": "~2.0.9",
+    "@types/node": "~15.6.1",
+    "codelyzer": "^6.0.2",
+    "jasmine-core": "~3.7.1",
+    "jasmine-spec-reporter": "~7.0.0",
+    "karma": "~6.3.2",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage-istanbul-reporter": "~3.0.3",
+    "karma-jasmine": "~4.0.1",
+    "karma-jasmine-html-reporter": "^1.6.0",
+    "protractor": "~7.0.0",
+    "ts-node": "~10.0.0",
+    "tslint": "~6.1.3",
+    "typescript": "~4.2.4"
+  }
+}

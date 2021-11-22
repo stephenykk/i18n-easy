@@ -1,0 +1,65 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "search.exclude": {
+    "out": true,
+    "dist": true,
+    "node_modules": true,
+    "CHANGELOG.md": true,
+    "examples": true,
+    "res": true,
+    "screenshots": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "cSpell.words": [
+    "Exts",
+    "Unflatten",
+    "enablement",
+    "exts",
+    "inplace",
+    "inplaces",
+    "joomla",
+    "lokalise",
+    "regs",
+    "youdao"
+  ],
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.formatOnSave": false,
+  "i18n-easy.localesPaths": "./locales",
+  "i18n-easy.sourceLanguage": "en",
+  "i18n-easy.keystyle": "flat",
+  "i18n-easy.preferredDelimiter": "_",
+  "i18n-easy.sortKeys": true,
+  "i18n-easy.keepFulfilled": true,
+  "i18n-easy.translate.promptSource": true,
+  "i18n-easy.pathMatcher": "{locale}.json",
+  "i18n-easy.translate.saveAsCandidates": true,
+  "i18n-easy.keysInUse": [
+    "view.progress_submenu.translated_keys",
+    "view.progress_submenu.missing_keys",
+    "view.progress_submenu.empty_keys"
+  ],
+  "i18n-easy.usage.scanningIgnore": [
+    "examples",
+  ],
+  "i18n-easy.regex.usageMatchAppend": [
+    "/\\*\\s*i18n\\s*\\*/\\s*['\"`]({key})['\"`]"
+  ],
+  "i18n-easy.enabledFrameworks": [
+    "vscode",
+    "vue",
+    "general"
+  ],
+  "i18n-easy.theme.annotationMissingBorder": "#d37070",
+  "i18n-easy.theme.annotationMissing": "#d37070",
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+    "vue",
+    "html"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+}

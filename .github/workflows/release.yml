@@ -1,0 +1,29 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm i -g vsce ovsx
+      - run: yarn install
+      - run: yarn run gh:release
+        env:
+          CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - run: yarn run build
+      - run: vsce publish -p ${{secrets.VSCE_TOKEN}}
+        env:
+          VSCE_TOKEN: ${{secrets.VSCE_TOKEN}}
+      - run: ovsx publish -p ${{secrets.OVSX_TOKEN}}
+        env:
+          OVSX_TOKEN: ${{secrets.OVSX_TOKEN}}

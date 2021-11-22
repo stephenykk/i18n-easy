@@ -1,0 +1,50 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+      fail-fast: false
+
+    steps:
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install
+        run: yarn install --frozen-lockfile
+        env:
+          CI: true
+
+      - name: Build
+        run: yarn build
+        env:
+          CI: true
+
+      - name: Unit Tests
+        run: yarn test:unit
+        env:
+          CI: true
+
+      - name: E2E Tests
+        run: yarn run test:e2e && yarn run test:fixture
+        if: runner.os != 'Linux'
+        env:
+          CI: true
+
+      - name: E2E Tests (Linux)
+        run: xvfb-run -a yarn run test:e2e && xvfb-run -a yarn run test:fixture
+        if: runner.os == 'Linux'
+        env:
+          CI: true
+

@@ -1,0 +1,6 @@
+hello: Hello
+project: YAML
+nested:
+  hello: Hello again
+  foo:
+    bar: foobar

@@ -1,0 +1,9 @@
+{
+  "i18n-easy.enabledFrameworks": ["general"],
+  "i18n-easy.localesPaths": ".",
+  "i18n-easy.pathMatcher": "messages.{locale}.json",
+  "i18n-easy.enabledParsers": ["json"],
+  "i18n-easy.displayLanguage": "en",
+  "i18n-easy.sourceLanguage": "en",
+  "i18n-easy.keystyle": "nested"
+}

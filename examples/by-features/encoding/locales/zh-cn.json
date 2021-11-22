@@ -1,0 +1,12 @@
+﻿{
+  "project": "��ʾ",
+  "hello": "��ã�",
+  "good_morning": "���Ϻ�",
+  "some": {
+    "deep": {
+      "nested": {
+        "encoding": "GB2312"
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "ui5-cli-test",
+  "description": "",
+  "devDependencies": {
+    "@ui5/cli": "^2.10.4"
+  }
+}

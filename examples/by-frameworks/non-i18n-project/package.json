@@ -1,0 +1,9 @@
+{
+  "name": "no-vue-i18n",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "vue": "^2.6.10"
+  }
+}

@@ -3,7 +3,7 @@ import path from 'path'
 import { env } from 'vscode'
 
 export default class i18n {
-  static language = env.language.toLocaleLowerCase()
+  static language = env.language.toLocaleLowerCase() // vscode的语言设置
   static messages: Record<string, string> = {}
 
   static init(extensionPath: string) {
@@ -12,6 +12,7 @@ export default class i18n {
       name = 'package.nls.json' // locale not exist, fallback to English
 
     // kk: what if name specify file not exists?
+    // extension i18n data
     this.messages = JSON.parse(fs.readFileSync(path.join(extensionPath, name), 'utf-8'))
   }
 

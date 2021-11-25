@@ -35,9 +35,9 @@ export class KeyDetector {
 
     const regs = Global.getUsageMatchRegex(document.languageId, document.uri.fsPath)
     for (const regex of regs) {
-      const range = document.getWordRangeAtPosition(position, regex)
+      const range = document.getWordRangeAtPosition(position, regex) // 根据正则,获取当前光标的range
       if (range) {
-        const key = document.getText(range).replace(regex, '$1')
+        const key = document.getText(range).replace(regex, '$1') // 第一个捕获分组 为 多语言key $t('app.hello') => app.hello
 
         if (dotEnding) {
           if (!key || key.endsWith('.'))
@@ -67,7 +67,7 @@ export class KeyDetector {
       new Position(range.end.line, end),
     )
     return {
-      range: keyRange,
+      range: keyRange, // 仅包含key的range
       key,
     }
   }

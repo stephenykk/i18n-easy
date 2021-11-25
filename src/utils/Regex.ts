@@ -87,7 +87,7 @@ export function normalizeUsageMatchRegex(reg: (string | RegExp)[]): RegExp[] {
   return reg.map((i) => {
     if (typeof i === 'string') {
       try {
-        const interpated = i.replace(/{key}/g, Config.regexKey)
+        const interpated = i.replace(/{key}/g, Config.regexKey) // t\({key}\) => t\(\w+\)
         return new RegExp(interpated, 'gm')
       }
       catch (e) {

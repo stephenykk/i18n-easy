@@ -20,7 +20,7 @@ const config = {
     libraryTarget: 'commonjs2',
     devtoolModuleFilenameTemplate: '../[resource-path]',
   },
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   externals: {
     'vscode': 'commonjs vscode',
     'nodejieba': 'nodejieba',

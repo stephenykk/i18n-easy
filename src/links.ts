@@ -1,5 +1,5 @@
 export default {
-  github: 'https://github.com/stephenykk/i18n-easy',
-  document: 'https://github.com/stephenykk/i18n-easy/blob/master/README.md',
+  github: 'https://github.com/lokalise/i18n-ally',
+  document: 'https://github.com/lokalise/i18n-ally/blob/master/README.md',
   issues: 'https://github.com/stephenykk/i18n-easy/issues',
 }

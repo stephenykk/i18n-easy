@@ -196,7 +196,7 @@ export class Config {
     return this.getConfig('pathMatcher')
   }
 
-  static get regexKey(): string {
+  static get regexKey(): string { // regex for matching i18n key
     return this.getConfig('regex.key')
       || this.getConfig('keyMatchRegex') // back compatible, depreacted.
       || (Config.disablePathParsing ? KEY_REG_ALL : KEY_REG_DEFAULT)

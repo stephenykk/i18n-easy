@@ -71,7 +71,7 @@ const config = {
         },
       }
     }).webpack(),
-    isProd ? new UglifyJSPlugin() : null,
+    ...isProd ? [new UglifyJSPlugin()] : [],
   ],
 }
 

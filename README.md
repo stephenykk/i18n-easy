@@ -23,7 +23,7 @@
   上述目录加后缀 `-local` `-remote` 也自动识别为语言目录，如: `language-local`, `language-remote`
 
 - 支持远程语言文件加载
-  在插件初始化前，如配置了 `i18n-easy.remoteApis` 则加载远程语言文件
+  在插件初始化前，如配置了 `i18n-easy.remoteApis` 则加载远程语言文件， *注意 配置在工作区*
 
 - 支持语言文件导出excel
   `ctrl + shift + p` 打开命令面板，输入命令 `i18n-easy.output-excel` 选择语言目录，导出中文语言文件为excel格式
@@ -31,6 +31,9 @@
 - 当前文档自动提取语言key功能修复
   由于使用缓存，多次重命名key，会出现替换位置错误的问题；vue文件 `name: "DemoComponent"` 被错误提取修复
   > 注意: 由于取消缓存，重命名key会比较慢，稍微等待一下
+
+- 检测当前项目使用框架兼容 `vue-i18n` 为外部依赖的情况
+  package.json 包含 `vue` 或 `@vue/cli-service` 也判断为vue框架的项目
 
 [i18n-ally](https://github.com/lokalise/i18n-ally) 功能非常的全面和丰富，源码也很值得学习；
 

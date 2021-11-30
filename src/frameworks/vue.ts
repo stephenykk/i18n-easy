@@ -10,6 +10,10 @@ class VueFramework extends Framework {
 
   detection = {
     packageJSON: [
+      // support projects use vue-i18n as external package
+      'vue',
+      '@vue/cli-service',
+
       'vue-i18n',
       'vuex-i18n',
       '@panter/vue-i18next',

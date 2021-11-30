@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.8.4](https://github.com/stephenykk/i18n-easy/compare/v2.8.3...v2.8.4) (2021-11-30)
+
+
+### ⚡ Features
+
+* 减少功能演示gif的大小 ([128f78f](https://github.com/stephenykk/i18n-easy/commit/128f78fa954a888700d8dd399905b625fe54e719))
+
 ### 2.8.3 (2021-11-30)
 
 

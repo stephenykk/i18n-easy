@@ -38,22 +38,22 @@
 
 - 提取文案, 自动文案注释, 点击跳转到语言文件
   语言key显示为翻译文案，*再也不用自己在代码里加 文案注释* 
-  ![annotation](images/annotation.gif)
+  ![annotation](https://github.com/stephenykk/i18n-easy/blob/master/images/annotation.gif)
 
 - 相同文案复用现有key
-  ![useExistKey](images/useExistsKey.gif)
+  ![useExistKey](https://github.com/stephenykk/i18n-easy/blob/master/images/useExistsKey.gif)
 
 - 自动识别文案内变量
-  ![withVar](images/withVar.gif)
+  ![withVar](https://github.com/stephenykk/i18n-easy/blob/master/images/withVar.gif)
 
 - 导出excel
-  ![outputExcel](images/outputExcel.gif)
+  ![outputExcel](https://github.com/stephenykk/i18n-easy/blob/master/images/outputExcel.gif)
 
 - 加载远程语言文件
-  ![loadRemoteLocales](images/configRemoteLocales.gif)
+  ![loadRemoteLocales](https://github.com/stephenykk/i18n-easy/blob/master/images/configRemoteLocales.gif)
 
 - 自动提取所有文案
-  ![autoExtract](images/autoExtract.gif)
+  ![autoExtract](https://github.com/stephenykk/i18n-easy/blob/master/images/autoExtract.gif)
 
 - 更多功能和配置
   参考[i18n-ally 文档](https://github.com/lokalise/i18n-ally/wiki)

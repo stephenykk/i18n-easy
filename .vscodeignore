@@ -8,6 +8,8 @@ dist/**/*.map
 dist/editor/*.js
 dist/editor/*.css
 src/**
+images/**
+dist/**/*.d.ts
 screenshots/**
 examples/**
 test/**

@@ -34,7 +34,7 @@ export class JsonParser extends Parser {
 
     const map = JsonMap.parse(text).pointers
     const pairs = Object.entries<any>(map)
-      .filter(([k, v]) => k)
+      .filter(([k]) => k)
       .map(([k, v]) => ({
         quoted: true,
         start: v.value.pos + 1,

@@ -182,3 +182,9 @@ export interface CustomRefactorTemplate {
   include?: string[]
   exclude?: string[]
 }
+
+export interface LocalesApis {
+  [locale: string]: Record<string, string>
+}
+
+declare module 'fast-glob';

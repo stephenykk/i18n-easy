@@ -1,9 +1,11 @@
+/* eslint-disable no-console */
 import path from 'path'
 import { workspace, window, WorkspaceEdit, RelativePattern } from 'vscode'
 import fg from 'fast-glob'
 import _, { uniq, throttle, set } from 'lodash'
 import fs from 'fs-extra'
 import { findBestMatch } from 'string-similarity'
+import axios from 'axios'
 import { FILEWATCHER_TIMEOUT } from '../../meta'
 import { ParsedFile, PendingWrite, DirStructure, TargetPickingStrategy } from '../types'
 import { LocaleTree } from '../Nodes'
@@ -11,7 +13,7 @@ import { AllyError, ErrorType } from '../Errors'
 import { Analyst, Global, Config } from '..'
 import { Telemetry, TelemetryKey } from '../Telemetry'
 import { Loader } from './Loader'
-import { ReplaceLocale, Log, applyPendingToObject, unflatten, NodeHelper, getCache, setCache } from '~/utils'
+import { ReplaceLocale, Log, applyPendingToObject, unflatten, NodeHelper, getCache, setCache, File } from '~/utils'
 import i18n from '~/i18n'
 
 const THROTTLE_DELAY = 1500
@@ -28,6 +30,12 @@ export class LocaleLoader extends Loader {
 
   async init() {
     if (await this.findLocaleDirs()) {
+      try {
+        await this.loadRemoteLoalesData()
+      }
+      catch (err: any) {
+        Log.info(`🚀 loadRemoteLoalesData error: "${err.toString()}"`)
+      }
       Log.info(`🚀 Initializing loader "${this.rootpath}"`)
       this._dir_structure = await this.guessDirStructure()
       Log.info(`📂 Directory structure: ${this._dir_structure}`)
@@ -343,7 +351,6 @@ export class LocaleLoader extends Loader {
     newkey = this.rewriteKeys(newkey, 'reference')
 
     const locations = await Analyst.getAllOccurrenceLocations(oldkey)
-
     for (const location of locations)
       edit.replace(location.uri, location.range, newkey)
 
@@ -468,7 +475,6 @@ export class LocaleLoader extends Loader {
     catch (e) {
       this.unsetFile(relativePath)
       Log.info(`🐛 Failed to load ${e}`, 2)
-      // eslint-disable-next-line no-console
       console.error(e)
     }
   }
@@ -650,5 +656,48 @@ export class LocaleLoader extends Loader {
         Log.error(e)
       }
     }
+  }
+
+  public async loadRemoteLoalesData() {
+    const localesApis = Config.localesApis
+    const dirs = this._locale_dirs.map(d => path.basename(d))
+    const normalDir = dirs.find(d => /[-_]/.test(d) === false) // from [language, language-local] pick language
+    const sign = dirs.find(d => /_/.test(d)) ? '_' : '-'
+    const remoteDir = `${normalDir}${sign}remote`
+    const remoteDirPath = path.resolve(this._locale_dirs[0], `../${remoteDir}`)
+    this._locale_dirs = uniq(this._locale_dirs.concat(remoteDirPath))
+
+    const getKey = (obj: object, val: any) => {
+      const pair = Object.entries(obj).find(p => p[1] === val)
+      if (!pair) return ''
+      return pair[0]
+    }
+
+    if (!localesApis) return false
+    for (const [locale, apiMap] of Object.entries(localesApis)) {
+      const apis = Object.values(apiMap)
+      Log.info(`🚀 loading remote locales from: "${apis.join(', ')}"`)
+      const resList = await Promise.all(apis.map((api: string) => axios.get(api, { responseType: 'json' })))
+      resList.forEach((res) => {
+        if (res.status === 200) {
+          // let basename = path.basename(res.config.url!)
+          // const extname = path.extname(basename)
+          // basename = basename.replace(extname, '')
+
+          let basename = getKey(apiMap, res.config.url)
+
+          basename = `${locale}.${basename}.json` // zh-CN.common.json
+          const filePath = path.join(remoteDirPath, basename)
+          const data: string = typeof res.data === 'string' ? res.data : JSON.stringify(res.data, null, 2)
+          Log.info(`🚀 output remote locales to: "${filePath}"`)
+
+          File.writeSync(filePath, data)
+        }
+      })
+    }
+  }
+
+  get localeDirs() {
+    return this._locale_dirs
   }
 }

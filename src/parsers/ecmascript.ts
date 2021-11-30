@@ -1,8 +1,9 @@
 import child_process from 'child_process'
 import path from 'path'
+import SortedStringify from 'json-stable-stringify'
 import { Parser } from './base'
-import i18n from '~/i18n'
-import { Log } from '~/utils'
+// import i18n from '~/i18n'
+// import { Log } from '~/utils'
 import { Config, Global } from '~/core'
 
 const LanguageIds = {
@@ -16,18 +17,26 @@ const LanguageExts = {
 } as const
 
 export class EcmascriptParser extends Parser {
-  readonly readonly = true
+  // readonly readonly = true
 
   constructor(public readonly id: 'js'|'ts' = 'js') {
     super([LanguageIds[id]], LanguageExts[id])
   }
 
-  async parse() {
-    return {}
+  async parse(text: string) {
+    if (!text || !text.trim())
+      return {}
+    return JSON.parse(text)
   }
 
-  async dump() {
-    return ''
+  async dump(object: object, sort: boolean) {
+    const indent = this.options.tab === '\t' ? this.options.tab : this.options.indent
+    let content = ''
+    if (sort)
+      content = `${SortedStringify(object, { space: indent })}\n`
+    else
+      content = `${JSON.stringify(object, null, indent)}\n`
+    return `export default ${content}`
   }
 
   async load(filepath: string) {
@@ -59,7 +68,7 @@ export class EcmascriptParser extends Parser {
     })
   }
 
-  async save() {
-    Log.error(i18n.t('prompt.writing_js'))
-  }
+  // async save() {
+  //   Log.error(i18n.t('prompt.writing_js'))
+  // }
 }

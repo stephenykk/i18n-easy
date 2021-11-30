@@ -28,8 +28,13 @@ export class ConfigLocalesGuide {
     this.success()
   }
 
+  static getRootPath() {
+    const rootPath = workspace.workspaceFolders?.[0]?.uri.fsPath
+    return rootPath
+  }
+
   static async pickDir(): Promise<string[]> {
-    const rootPath = workspace.workspaceFolders?.[0]?.uri.path
+    const rootPath = this.getRootPath()
     if (!rootPath)
       return []
 
@@ -43,8 +48,9 @@ export class ConfigLocalesGuide {
 
     return dirs
       .map((item) => {
-        if (process.platform === 'win32') // path on windows will starts with '/'
-          return item.path.slice(1)
+        // fix: trimLeft / will make path.relative() fail
+        // if (process.platform === 'win32') // path on windows will starts with '/'
+        //   return item.path.slice(1)
         return item.path
       })
       .map(pa => path
@@ -58,11 +64,11 @@ export class ConfigLocalesGuide {
   }
 
   static async autoSet() {
-    const rootPath = workspace.rootPath
+    const rootPath = this.getRootPath()
     if (!rootPath)
       return
-
-    const pattern = ['**/**/(locales|locale|i18n|lang|langs|language|languages|messages)']
+    // support more dirs
+    const pattern = ['**/**/(locales|locale|i18n|lang|langs|language|languages|messages)([-_]local|[-_]remote)?']
     const result: string[] = await fg(pattern, {
       cwd: rootPath,
       ignore: [
@@ -85,7 +91,7 @@ export class ConfigLocalesGuide {
       Config.updateLocalesPaths(result)
 
       await window.showInformationMessage(
-        i18n.t('prompt.config_locales_auto_success', result.join(';').toString()),
+        i18n.t('prompt.config_locales_auto_success', result.join('; ').toString()),
       )
     }
     else {

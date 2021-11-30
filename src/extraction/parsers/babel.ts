@@ -5,6 +5,7 @@ import { DefaultDynamicExtractionsRules, DefaultExtractionRules, ExtractionRule 
 import { shouldExtract } from '../shouldExtract'
 import { ExtractionBabelOptions } from './options'
 import { DetectionResult } from '~/core/types'
+import { Config } from '~/core'
 
 const defaultOptions: Required<ExtractionBabelOptions> = {
   ignoredJSXAttributes: ['class', 'className', 'key', 'style', 'ref', 'onClick'],
@@ -53,6 +54,9 @@ export function detect(
     if (type === 'js-template' && !shouldExtract(text, dynamicRules))
       return
     else if (!shouldExtract(text, rules))
+      return
+    // eslint-disable-next-line unicorn/escape-case
+    else if (Config.sourceLanguage.match(/zh/i) && type === 'js-string' && !/[\u4e00-\u9fa5]/.test(text))
       return
 
     detections.push({

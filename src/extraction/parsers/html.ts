@@ -4,6 +4,7 @@ import { shouldExtract } from '../shouldExtract'
 import { ExtractionHTMLOptions } from './options'
 import { shiftDetectionPosition } from './utils'
 import { DetectionResult } from '~/core/types'
+import { Config } from '~/core'
 
 const defaultOptions: Required<ExtractionHTMLOptions> = {
   attributes: ['title', 'alt', 'placeholder', 'label', 'aria-label'],
@@ -42,13 +43,19 @@ export function detect(
         return
 
       const attrNames = Object.keys(attrs).map((name) => {
+        const isCNValue
+          = Config.sourceLanguage.match(/zh/i)
+          // eslint-disable-next-line unicorn/escape-case
+          && attrs[name].match(/[\u4e00-\u9fa5]/)
+          && name.match(/^(:|v-bind:)/)
+
         // static
         if (ATTRS.includes(name) && shouldExtract(attrs[name], rules))
           return [name, false]
         // dynamic
         else if (
           V_BIND
-          && ATTRS.some(n => name === `:${n}` || name === `v-bind:${n}`)
+          && (isCNValue || ATTRS.some(n => name === `:${n}` || name === `v-bind:${n}`))
           && shouldExtract(attrs[name], dynamicRules)
         )
           return [name, true]

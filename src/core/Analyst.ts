@@ -63,7 +63,8 @@ export class Analyst {
   }
 
   private static async getOccurrencesOfText(doc: TextDocument, filepath: string) {
-    const keys = KeyDetector.getKeys(doc)
+    // const keys = KeyDetector.getKeys(doc)
+    const keys = KeyDetector.getKeys(doc.getText()) // fix: skip use cache
     const occurrences: KeyOccurrence[] = []
 
     for (const { start, end, key } of keys) {
@@ -78,7 +79,8 @@ export class Analyst {
     return occurrences
   }
 
-  static async getAllOccurrences(targetKey?: string, useCache = true) {
+  // fix: default not use cache, in the case of renameKey, after rename the document
+  static async getAllOccurrences(targetKey?: string, useCache = false) {
     if (!useCache)
       this._cache = null
 

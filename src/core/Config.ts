@@ -4,7 +4,7 @@ import { workspace, extensions, ExtensionContext, commands, ConfigurationScope, 
 import { trimEnd, uniq } from 'lodash'
 import { TagSystems } from '../tagSystems'
 import { EXT_NAMESPACE, EXT_ID, EXT_LEGACY_NAMESPACE, KEY_REG_DEFAULT, KEY_REG_ALL, DEFAULT_LOCALE_COUNTRY_MAP } from '../meta'
-import { KeyStyle, DirStructureAuto, TargetPickingStrategy } from '.'
+import { KeyStyle, DirStructureAuto, TargetPickingStrategy, LocalesApis } from '.'
 import i18n from '~/i18n'
 import { CaseStyles } from '~/utils/changeCase'
 import { ExtractionBabelOptions, ExtractionHTMLOptions } from '~/extraction/parsers/options'
@@ -274,6 +274,12 @@ export class Config {
 
   static set _localesPaths(paths: string[] | undefined) {
     this.setConfig('localesPaths', paths)
+  }
+
+  // localesApis
+  static get localesApis() {
+    const apis: LocalesApis | undefined = this.getConfig('localesApis')
+    return apis
   }
 
   static getLocalesPathsInScope(scope: WorkspaceFolder): string[] | undefined {

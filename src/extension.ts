@@ -1,4 +1,4 @@
-import { ExtensionContext } from 'vscode'
+import { commands, ExtensionContext } from 'vscode'
 import { flatten } from 'lodash'
 import { version } from '../package.json'
 import { Global, Config, KeyDetector, CurrentFile } from '~/core'
@@ -28,6 +28,11 @@ export async function activate(ctx: ExtensionContext) {
 
   const disposables = flatten(modules.map(m => m(ctx)))
   disposables.forEach(d => ctx.subscriptions.push(d))
+
+  const outputDisposable = commands.registerCommand('i18n-easy.output-excel', () => {
+    Global.outputExcel()
+  })
+  ctx.subscriptions.push(outputDisposable)
 }
 
 export function deactivate() {

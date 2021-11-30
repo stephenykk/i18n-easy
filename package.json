@@ -1,7 +1,7 @@
 {
   "publisher": "stephenykk",
   "name": "i18n-easy",
-  "version": "2.8.1",
+  "version": "2.8.2",
   "displayName": "i18n-easy",
   "description": "🌍 i18n extension for VS Code, make i18n easy",
   "keywords": [
@@ -43,6 +43,8 @@
   "dependencies": {
     "@babel/parser": "^7.15.3",
     "@babel/traverse": "^7.15.0",
+    "@types/node-xlsx": "^0.15.2",
+    "@types/yaml": "^1.9.7",
     "bcp-47-normalize": "^2.0.1",
     "change-case": "^4.1.2",
     "consolidate": "^0.16.0",
@@ -61,6 +63,7 @@
     "lodash": "^4.17.21",
     "micromatch": "^4.0.4",
     "nanoid": "^3.1.25",
+    "node-xlsx": "^0.17.2",
     "parse-gitignore": "^1.0.1",
     "pofile": "^1.1.1",
     "properties": "^1.2.1",
@@ -170,6 +173,11 @@
   "bugs": "https://github.com/stephenykk/i18n-easy/issues",
   "contributes": {
     "commands": [
+      {
+        "command": "i18n-easy.output-excel",
+        "title": "中文语言文件导出为excel",
+        "category": "%extname%"
+      },
       {
         "command": "i18n-easy.config-locales",
         "title": "%command.config_locales%",
@@ -730,6 +738,12 @@
           },
           "description": "%config.locales_paths%",
           "scope": "resource"
+        },
+        "i18n-easy.localesApis": {
+          "type": [
+            "object"
+          ],
+          "description": "fetching locales data api, eg: {'zh-CN': {common: commonJsonApi, pc: pcJsonApi}}"
         },
         "i18n-easy.encoding": {
           "type": "string",

@@ -9,7 +9,7 @@ import { Properties } from './properties'
 import { FluentParser } from './ftl'
 import { Parser } from './base'
 
-export const DefaultEnabledParsers = ['json', 'yaml', 'json5']
+export const DefaultEnabledParsers = ['json', 'yaml', 'json5', 'js']
 
 export const AvailableParsers: Parser[] = [
   // enabled parsers

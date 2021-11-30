@@ -67,7 +67,7 @@ export abstract class Framework {
    */
   pathMatcher(dirStructure?: DirStructure): string {
     if (dirStructure === 'file')
-      return '{locale}.{ext}'
+      return '{locale}(?:.\\w+)?.{ext}' // support more suffix for local file
     else if (Config.namespace)
       return '{locale}/**/{namespace}.{ext}'
     else

@@ -1,6 +1,8 @@
-import { extname, resolve } from 'path'
+import path, { extname, resolve } from 'path'
 import { workspace, commands, window, EventEmitter, Event, ExtensionContext, ConfigurationChangeEvent, TextDocument, WorkspaceFolder } from 'vscode'
 import { uniq } from 'lodash'
+import fse from 'fs-extra'
+import xlsx from 'node-xlsx'
 import { slash } from '@antfu/utils'
 import { isMatch } from 'micromatch'
 import { ParsePathMatcher } from '../utils/PathMatcher'
@@ -224,12 +226,12 @@ export class Global {
       ? [Config._pathMatcher]
       : this.enabledFrameworks
         .flatMap(f => f.pathMatcher(dirStructure))
-
-    return uniq(rules)
+    const pathMatchers = uniq(rules)
       .map(matcher => ({
         regex: ParsePathMatcher(matcher, this.enabledParserExts),
         matcher,
       }))
+    return pathMatchers
   }
 
   static hasFeatureEnabled(name: keyof OptionalFeatures) {
@@ -283,6 +285,10 @@ export class Global {
     this._loaders[rootpath] = loader
 
     return this._loaders[rootpath]
+  }
+
+  static get localeLoader() {
+    return this._loaders[this.rootpath]
   }
 
   private static async updateRootPath() {
@@ -461,5 +467,30 @@ export class Global {
 
   static getExtractionFrameworksByLang(languageId: string) {
     return this.enabledFrameworks.filter(i => i.supportAutoExtraction?.includes(languageId))
+  }
+
+  static async outputExcel() {
+    const localeDirs = this.localeLoader.localeDirs
+    const localeDir = await window.showQuickPick(localeDirs, { placeHolder: '选择语言目录' })
+    if (!localeDir) return
+
+    const files = fse.readdirSync(localeDir).filter(fname => /zh/.test(fname))
+    const data = {}
+    for (const fname of files) {
+      const fpath = path.resolve(localeDir, fname)
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const id = path.extname(fname).replace(/^\./, '')
+      const parser = AvailableParsers.find(parser => parser.id === id)
+      if (!parser) return
+      const fdata = await parser.load(fpath)
+      Object.assign(data, fdata)
+    }
+
+    const titleRow = ['多语言key', '简体中文']
+    const tableData = [titleRow, ...Object.entries(data)]
+    const buffer = xlsx.build([{ name: 'i18nmap', data: tableData }], { '!cols': [{ wch: 60 }, { wch: 20 }] })
+    const outFile = path.resolve(localeDir, 'i18n-keys.xlsx')
+    fse.outputFileSync(outFile, buffer)
+    window.showInformationMessage(`success output: ${outFile}`)
   }
 }

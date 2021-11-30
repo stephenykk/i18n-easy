@@ -3,6 +3,7 @@
 // {lang}/{namespace}/**/*.json
 // something/{lang}/{namespace}/**/*.*
 export function ParsePathMatcher(pathMatcher: string, exts = '') {
+  // kk："{locale}/**/*.{ext}" => "(?<locale>[\\w-_]+)(?:.*/|^).*\\.(?<ext>json|ya?ml|json5)"
   let regstr = pathMatcher
     .replace(/\./g, '\\.')
     .replace('.*', '..*')

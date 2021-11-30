@@ -6,9 +6,13 @@ const path = require('path')
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin')
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin')
 const { createUnplugin } = require('unplugin')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+
+const isProd = process.env.I18N_EASY_ENV === 'production'
 
 /** @type {import('webpack').Configuration} */
 const config = {
+  mode: isProd ? 'production' : 'development',
   target: 'node',
   optimization: {
     minimize: false,
@@ -20,7 +24,7 @@ const config = {
     libraryTarget: 'commonjs2',
     devtoolModuleFilenameTemplate: '../[resource-path]',
   },
-  devtool: 'source-map',
+  devtool: isProd ? undefined : 'source-map',
   externals: {
     'vscode': 'commonjs vscode',
     'nodejieba': 'nodejieba',
@@ -67,6 +71,7 @@ const config = {
         },
       }
     }).webpack(),
+    isProd ? new UglifyJSPlugin() : null,
   ],
 }
 

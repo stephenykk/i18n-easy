@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.8.8](https://github.com/stephenykk/i18n-easy/compare/v2.8.7...v2.8.8) (2021-12-01)
+
+
+### ⚡ Features
+
+* 修复功能演示图片链接 ([c6efe6e](https://github.com/stephenykk/i18n-easy/commit/c6efe6efbd764e8163d245453c14146afeb498ae))
+
 ### [2.8.7](https://github.com/stephenykk/i18n-easy/compare/v2.8.6...v2.8.7) (2021-12-01)
 
 ### [2.8.6](https://github.com/stephenykk/i18n-easy/compare/v2.8.5...v2.8.6) (2021-11-30)
